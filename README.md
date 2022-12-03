@@ -29,18 +29,10 @@
 使用 gradle 构建：
 
 # 下载源码
-git clone https://gitee.com/surveyking/surveyking.git
+
 
 # 设置 profile，修改 api/src/main/resources/application.yml
 # 打开 active: ${activeProfile} # gradle 配置
-
-# 开始构建
-gradle clean :api:build -P pro -x test
-# 生成的 jar 包位于 ./api/build/libs/surveyking-v0.x.x.jar
-使用 maven 构建：
-
-# 下载源码
-git clone https://gitee.com/surveyking/surveyking.git
 
 # 开始构建
 mvn clean package -DskipTests -Ppro
@@ -79,6 +71,37 @@ java -jar surveyking-v0.x.x.jar
 下载 该目录下面的静态资源文件，直接部署到 nginx 即可。
 
 然后配置 proxy 代理到后端 api 服务。
+
+
+# 编写脚本
+编写脚本用于操作 java 服务
+
+(1) 启动脚本 start.sh
+
+nohup java -jar target/surveyking-v1.4.0.jar --server.port=9999 spring.datasource.url=jdbc:mysql://localhost:3306/surveyking --spring.datasource.username=root --spring.datasource.password=123123 > nohup.out 2>&1 &
+
+(2) 停止脚本 stop.sh
+
+PID=$(ps -ef | grep surveyking-v1.4.0.jar | grep -v grep | awk '{ print $2 }')
+if [ -z "$PID" ]
+then
+echo Application is already stopped
+else
+echo kill -9 $PID
+kill -9 $PID
+fi
+(3) 查看日志脚本 log.sh
+
+tail -f nohup.out
+脚本创建完成后就可以操作 java 服务了
+
+# 启动java
+./start.sh
+# 停止java服务
+./stop.sh
+# 查看日志
+./log.sh
+
 
 
 
