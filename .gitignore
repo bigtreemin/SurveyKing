@@ -8,6 +8,7 @@ files/
 bin/
 .classpath
 .projecttarget/
+.vscode/
 target/
 test/
 build.sh
@@ -34,3 +35,6 @@ build.sh
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+*.log
+private.txt

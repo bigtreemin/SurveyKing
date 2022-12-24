@@ -36,6 +36,7 @@ public class DatabaseInitHelper {
 	private static String db = "mysql";
 
 	public static void init(String[] args) {
+
 		try {
 			needCreateProperties();
 			// 初始化启动配置文件，初始化数据库脚本
@@ -107,7 +108,7 @@ public class DatabaseInitHelper {
 
 	private static DatabaseInitProperties setProperties() {
 		DatabaseInitProperties properties = new DatabaseInitProperties();
-		properties.setApplicationName(setProperty("请输入应用名称:", "名称不能为空", ".+", "SurveyKing"));
+		properties.setApplicationName(setProperty("请输入应用名称(默认 SurveyKing):", "名称不能为空", ".+", "SurveyKing"));
 		properties.setServerPort(Integer.parseInt(setProperty("请输入应用端口号(默认 1991):", "端口号不能为空", "\\d{1,5}", "1991")));
 		properties.setDbIp(setProperty("请输入数据库地址(默认 127.0.0.1):", "IP 地址格式不正确，请重新输入", IP_PATTERN, "127.0.0.1"));
 		properties.setDbPort(Integer.parseInt(setProperty("请输入数据库端口(默认 3306):", "端口格式不正确，请重新输入", "\\d{1,5}", "3306")));
